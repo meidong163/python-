@@ -1,0 +1,81 @@
+
+<!--二级模版-->
+{%extends 'base_html/foot_base.html'%}
+<!--引入的js-->
+{%block header%}
+<!--<script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>-->
+<!--<script>-->
+	<!--//只有写到跟播版中取材执行-->
+	<!--// 采用模版语言的方式来实现也可以。-->
+	<!--$(function(){-->
+  	 <!--// alert('1.0');-->
+   	<!--$.get("/user/getsession/", function(session){-->
+              	  <!--// alert('success');-->
+                  <!--loginfo =$('.login_info');-->
+                  <!--logbtn = $('.login_btn');-->
+                  <!--if (session.uname != null)-->
+                  <!--{-->
+                      <!--loginfo.show();-->
+                      <!--logbtn.hide();-->
+                      <!--loginfo.children('em').html(session.uname);-->
+                  <!--}-->
+                  <!--else-->
+				  <!--{-->
+                      <!--$('.user_link a').attr('href', '/user/login/');-->
+				  <!--}-->
+
+
+              <!--});-->
+		<!--});-->
+<!--</script>-->
+{%endblock header%}
+
+
+<!--body部分-->
+{%block body%}
+    <!--导航栏部分-->
+    {% block nav_bar%}
+        <div class="header_con">
+			<div class="header">
+			<div class="welcome fl">欢迎来到天天生鲜!</div>
+			<div class="fr">
+				<!--这种方式解决了 js实现这个功能的缺点-->
+				{% ifnotequal request.session.uname|default:'' '' %}
+				<div class="login_info fl">
+                    <!-- 登录之后 返回 -->
+					欢迎您：<em>{{request.session.uname}}</em>
+					<a href="/user/logout/">退出</a>
+				</div>
+				{% else %}
+				<div class="login_btn fl">
+					<a href="/user/login/">登录</a>
+					<span>|</span>
+					<a href="/user/register/">注册</a>
+				</div>
+				{% endifnotequal %}
+				<div class="user_link fl">
+					<span>|</span>
+					<a href="/user/usercenterinfo/">用户中心</a>
+					<span>|</span>
+					<!--购物车 在购物车模块中 实现-->
+					<a href="/user/cart/">我的购物车</a>
+					<span>|</span>
+					<!--订单在专门的订单模块 实现-->
+					<a href="/user/user_center_order/">我的订单</a>
+				</div>
+			</div>
+        </div>
+		</div>
+    {% endblock nav_bar%}
+
+    <!--内容的部分-->
+    <!--
+    1. 我的订单，我的购物车，我的订单，最近浏览都可以使用这个模版，只需要填充不同的 content即可
+    2. content
+    -->
+    {% block content %}
+
+    {% endblock content%}
+
+
+{%endblock body%}
